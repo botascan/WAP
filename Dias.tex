@@ -2,18 +2,66 @@
 
 \usetheme{CambridgeUS}
 
-\title{Bounded Multi-Source Shortest Path}
-\author{B. Tascan, B. Durie, S. Lackner}
-\date{\today}
-%\logo{\includegraphics{rkutil.jpeg}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% --- TITLE PAGE --- %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\title{Bounded Multi-Source Shortest Path}
+
+\subtitle{Duan et alii}
+\author[Tascan, Durie, Lackner]{B. Tascan, B. Durie, S. Lackner}
+\date[WAP 2025/26]{\today}
+
+\setbeamertemplate{title page}{
+    \begin{center}
+        {\usebeamerfont{title}\inserttitle\par}
+        \vspace{0.5cm}
+        {\usebeamerfont{author}\insertauthor\par}
+        \vspace{0.3cm}
+        {\usebeamerfont{institute}\insertinstitute\par}
+        \vspace{0.3cm}
+        {\usebeamerfont{date}\insertdate\par}
+        \vspace{0.50cm}
+        \includegraphics[width=5.5cm]{logo1.png}
+    \end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% ---  --- %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\institute[PLUS]{
+    FB Informatik\\
+    Universität Salzburg
+}
+\setbeamertemplate{navigation symbols}{}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}
+    %\frametitle{Verzeichnis}
+    \tableofcontents[
+        currentsection
+    ]
+  \end{frame}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% --- CUSTOMISE END --- %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
+
 
 \begin{frame}
     \titlepage
 \end{frame}
 
-
+\logo{
+  \begin{minipage}{1cm}
+    %\hfill
+    \includegraphics[height=1cm]{logo2.png}
+  \end{minipage}
+}
 
 \begin{frame}{Verzeichnis}
     \tableofcontents
@@ -21,32 +69,34 @@
 
 \section{Einführung}
 
-\begin{frame}{Einführung}
+\subsection{Wichtigkeit}
+\begin{frame}{Wichtigkeit}
     \begin{itemize}
-        \item Frontier:
-        \item reverse Ackermamn-Funktion:
+        \item<1-> Dijkstra hat eine asymptotische Laufzeit von $\mathcal{O}(m\log n)$
+        \item<2-> 
+        \item<3-> Datenstrukturen 
     \end{itemize}
 \end{frame}
 
-\section{SSSP Algorithmen}
+\subsection{SSSP Algorithmen}
 
 \begin{frame}{SSSP Algorithmen}
     
 \end{frame}
 
-\subsection{Dijkstra}
+\subsubsection{Dijkstra}
 
 \begin{frame}{Dijkstra}
     
 \end{frame}
 
-\subsection{Bellman-Ford}
+\subsubsection{Bellman-Ford}
 
 \begin{frame}{Bellman-Ford}
     
 \end{frame}
 
-\section{Duan's SSSP}
+\section{Bounded Multi-Source Shortest Path}
 \subsection{Die Datenstruktur}
 \subsection{Der Algorithmus}
 \subsection{Laufzeit}
