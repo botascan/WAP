@@ -6,7 +6,8 @@
 %%% --- TITLE PAGE --- %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{Bounded Multi-Source Shortest Path}
+\title{Breaking the Sorting Barrier for Directed Single-Source Shortest
+Paths}
 
 \subtitle{Duan et alii}
 \author[Tascan, Durie, Lackner]{B. Tascan, B. Durie, S. Lackner}
@@ -69,10 +70,10 @@
 
 \section{Einführung}
 
-\subsection{Wichtigkeit}
-\begin{frame}{Wichtigkeit}
+
+\begin{frame}
     \begin{itemize}
-        \item<1-> Dijkstra hat eine asymptotische Laufzeit von $\mathcal{O}(m\log n)$
+        \item<1-> 
         \item<2-> 
         \item<3-> Datenstrukturen 
     \end{itemize}
@@ -81,7 +82,9 @@
 \subsection{SSSP Algorithmen}
 
 \begin{frame}{SSSP Algorithmen}
-    
+    \begin{itemize}
+        \item<1-> Single-Source Shortest Path Algorithmen (SSSP's) 
+    \end{itemize}
 \end{frame}
 
 \subsubsection{Dijkstra}
@@ -98,6 +101,81 @@
 
 \section{Bounded Multi-Source Shortest Path}
 \subsection{Die Datenstruktur}
+
+\begin{frame}{Die Datenstruktur}
+    \begin{itemize}
+        \item<1-> Dijkstra hat eine asymptotische Laufzeit von $\mathcal{O}(m\log n)$
+        \item<2-> Um diese Laufzeit zu verbessern, wird eine spezielle Datenstruktur benötigt
+        \item<3-> Diese Struktur ist eine sogenannte Block-based linked List
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Die Datenstruktur}
+    \begin{itemize} 
+        \item<1-> Es gibt zwei Sequenzen an Blöcken, $\mathcal{D}_0$ und $\mathcal{D}_1$, welche beide Linked Lists sind mit maximal M Key/Value Paaren und einem Upperbound von B
+        \item<2-> $\mathcal{D}_0$ enthält Batch Prepend Elemente, unbounded
+        \item<3-> $\mathcal{D}_1$ enthält mit Insert eingefügte Elemente, bounded mit $O(\max\{1, N/M\})$
+    \end{itemize}
+    \only<3->{
+        \begin{center}
+            \includegraphics[width=0.7\textwidth]{test-6.pdf}
+        \end{center}
+    }
+\end{frame}
+
+\begin{frame}{Die Datenstruktur}
+    \begin{itemize}
+        \item<1-> Beide Sequenzen sind nach deren Werten sortiert, d.h. der Upperbound eines Blocks ist nie größer als alle Werte des darauffolgenden Blocks
+        \item<2-> Die Blöcke werden von einem binären Suchbaum gebalanced
+    \end{itemize}
+    \only<2>{
+        \begin{center}
+            \includegraphics[width=0.5\textwidth]{block1.pdf}
+        \end{center}
+    }
+    \only<3>{
+        \begin{center}
+            \includegraphics[width=0.7\textwidth]{sequenzorder-1.pdf}
+        \end{center}
+    }
+\end{frame}
+
+\begin{frame}{Die Datenstruktur}
+    \begin{itemize}
+        \item<1-> Insert
+        \item<2-> Batch Prepend
+        \item<3-> Pull
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Die Datenstruktur}
+    \begin{itemize}
+        \item<1-> Insert(a, b):
+        \item<2-> Sollten mehrere Key/Value Paare den selben Key haben, so wird das Paar mit dem kleineren Value bevorzugt
+        \item<3-> Der entsprechende Block wird mithilfe des Binären Baums gesucht
+        \item<4-> Insert beim gefunden Block in$\mathcal{D}_1$
+        \item<5-> Laufzeit von Insert $O(\max\{1, \log(N/M)\})$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Die Datenstruktur}
+    \begin{itemize}
+        \item<1-> Batch Prepend(L):
+        \item<2-> L Key/value Paare werden so eingetragen dass keine kleineren Werte vorhanden sind
+        \item<3-> Insert ist immer am Beginn von $\mathcal{D}_0$
+        \item<4-> Laufzeit von Batch Prepend $O(L \cdot \max\{1, \log(L/M)\})$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Die Datenstruktur}
+    \begin{itemize}
+        \item<1-> Pull:
+        \item<2-> Pull gibt eine Menge S', mit einem Upper Bound x, an kleinsten Werten zurück 
+        \item<3-> Das führt zu einer Sortierung in Gruppen statt einer genauen Sortierung der Werte
+        \item<4-> Laufzeit von Pull $O(|S'|)$
+    \end{itemize}
+\end{frame}
+
 \subsection{Der Algorithmus}
 \subsection{Laufzeit}
 
