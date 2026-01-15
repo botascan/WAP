@@ -99,7 +99,416 @@ Paths}
     
 \end{frame}
 
+%BMSSP%
 \section{Bounded Multi-Source Shortest Path}
+\subsection{Der Algorithmus}
+
+%Einleitung%
+\begin{frame}{Der Algorithmus - Einleitung}
+    \begin{columns}[c, onlytextwidth]
+        \begin{column}{.5\textwidth}
+            \begin{itemize}[<+->]
+                \item Dijkstra in $\mathcal{O}(m + n\log n)$
+                \item Sortierbarriere $\Omega(n\log n)$
+            \end{itemize}
+        \end{column}
+
+        \begin{column}{.4\textwidth}
+            \centering
+            \fbox{
+                \includesvg[width=\linewidth, height=0.7\textheight, keepaspectratio]{divide-and-conquer-1}
+            }
+        \end{column}
+
+        \begin{column}{.1\textwidth}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Der Algorithmus - Lösungsansatz}
+    Sortierbarriere umgehen durch:
+    \vspace{0.6cm}
+    
+    \begin{itemize}[<+->]
+        \item \textbf{Eigene Datenstruktur} \\ 
+        Ermöglicht effizientes \textit{Bucketing}, verhindert Sortierung
+        \vspace{0.4cm}
+        
+        \item \textbf{Pivoting} \\ 
+        Reduziert den Rechenaufwand
+        \vspace{0.4cm}
+        
+        \item \textbf{Divide \& Conquer} \\ 
+        Mindert die Problemgröße durch Rekursion
+    \end{itemize}
+\end{frame}
+
+%Divide and conquer%
+\begin{frame}{Der Algorithmus - Divide \& Conquer}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at ([yshift=-0.5cm]current page.center) {
+            \fbox{%
+                \includesvg[height=0.8\textheight]{divide-and-conquer-1}%
+            }
+        };
+    \end{tikzpicture}
+\end{frame}
+
+
+\begin{frame}{Der Algorithmus - Divide \& Conquer}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at ([yshift=-0.5cm]current page.center) {
+            \fbox{%
+                \includesvg[height=0.8\textheight]{divide-and-conquer-2}
+            }
+        };
+        \node[
+            fill=white,
+            draw=beamer@blendedblue,
+            thick, 
+            rounded corners, 
+            inner sep=8pt,
+            opacity=0.9,
+            text opacity=1,
+            anchor=north east
+        ] at ([xshift=-0.5cm, yshift=-1.8cm]current page.north east) {
+            $2^t \text{ Partitionen mit } t = \lfloor \log^{2/3} n \rfloor$
+        };
+
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Der Algorithmus - Divide \& Conquer}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at ([yshift=-0.5cm]current page.center) {
+            \includesvg[height=0.8\textheight]{divide-and-conquer-3}%
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Der Algorithmus - Divide \& Conquer}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at ([yshift=-0.5cm]current page.center) {
+            \fbox{%
+                \includesvg[height=0.8\textheight]{divide-and-conquer-part-2}%
+            }
+        };
+        \node[
+            fill=white,
+            draw=beamer@blendedblue,
+            thick, 
+            rounded corners, 
+            inner sep=8pt,
+            opacity=0.9,
+            text opacity=1,
+            anchor=north east
+        ] at ([xshift=-0.5cm, yshift=-2.5cm]current page.north east) {
+            $\lceil(\log n) /  t \rceil \text{ Rekursionen}$
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Der Algorithmus - Divide \& Conquer}
+    Wozu das ganze?
+    \vspace{0.6cm}
+    ist notwendiges Hilfsmittel für:
+    \begin{itemize}
+        \item \textbf{BMSSP} \\ 
+        funktioniert nur dank Abgrenzungen
+        \vspace{0.4cm}
+        \item \textbf{Pivots} \\ 
+        erlaubt schnelle Auswahl von wichtigen Knoten
+    \end{itemize}
+\end{frame}
+
+%BMSSP
+\begin{frame}{Der Algorithmus - BMSSP}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at ([yshift=-0.5cm]current page.center) {
+            \fbox{%
+                \includesvg[height=0.6\textheight]{bmssp-1}%
+            }
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Der Algorithmus - BMSSP}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at ([yshift=-0.5cm]current page.center) {
+            \fbox{%
+                \includesvg[height=0.6\textheight]{bmssp-2}%
+            }
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Der Algorithmus - BMSSP}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at ([yshift=-0.5cm]current page.center) {
+            \fbox{%
+                \includesvg[height=0.6\textheight]{bmssp-3}%
+            }
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Der Algorithmus - BMSSP}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at ([yshift=-0.5cm]current page.center) {
+            \fbox{%
+                \includesvg[height=0.6\textheight]{bmssp-4}%
+            }
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Der Algorithmus - BMSSP}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at ([yshift=-0.5cm]current page.center) {
+            \fbox{%
+                \includesvg[height=0.6\textheight]{bmssp-4}%
+            }
+        };
+        \node[
+            fill=white,
+            draw=beamer@blendedblue,
+            thick, 
+            rounded corners, 
+            inner sep=8pt,
+            opacity=0.9,
+            text opacity=1,
+            anchor=north east
+        ] at ([xshift=-0.5cm, yshift=-2cm]current page.north east) {
+            Konkrete Suche via Mini-Dijkstra über $k$-Schritte
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Der Algorithmus - BMSSP}
+    Wozu das ganze?
+    \vspace{0.6cm}
+    \begin{itemize}
+        \item \textbf{Sortierbarriere} \\ 
+        Ermöglicht Umgehung der $\Omega(n\log n)$ Schranke dank Bucketing
+    \end{itemize}
+\end{frame}
+
+%Pivots%
+\begin{frame}{Der Algorithmus - Pivots}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at ([yshift=-0.5cm]current page.center) {
+            \fbox{%
+                \includesvg[height=0.8\textheight]{pivots-1}%
+            }
+        };
+        \node[
+            fill=white,
+            draw=beamer@blendedblue,
+            thick, 
+            rounded corners, 
+            inner sep=8pt,
+            opacity=0.9,
+            text opacity=1,
+            anchor=north east
+        ] at ([xshift=-0.25cm, yshift=-1.25cm]current page.north east) {
+            $k$ Bellmann-Ford Schritte
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Der Algorithmus - Pivots}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at ([yshift=-0.5cm]current page.center) {
+            \fbox{%
+                \includesvg[height=0.8\textheight]{pivots-2}%
+            }
+        };
+        \node[
+            fill=white,
+            draw=beamer@blendedblue,
+            thick, 
+            rounded corners, 
+            inner sep=8pt,
+            opacity=0.9,
+            text opacity=1,
+            anchor=north east
+        ] at ([xshift=-0.25cm, yshift=-1.25cm]current page.north east) {
+            \text{Markiere Knoten anhand nähester Quelle}
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Der Algorithmus - Pivots}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at ([yshift=-0.5cm]current page.center) {
+            \fbox{%
+                \includesvg[height=0.8\textheight]{pivots-2}%
+            }
+        };
+        \node[
+            fill=white,
+            draw=beamer@blendedblue,
+            thick, 
+            rounded corners, 
+            inner sep=8pt,
+            opacity=0.9,
+            text opacity=1,
+            anchor=north east
+        ] at ([xshift=-0.25cm, yshift=-1.25cm]current page.north east) {
+            Bäume mit mindestens $k$ Knoten $\Rightarrow$ Pivots
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Der Algorithmus - Pivots}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at ([yshift=-0.5cm]current page.center) {
+            \fbox{%
+                \includesvg[height=0.8\textheight]{pivots-2}%
+            }
+        };
+        \node[
+            fill=white,
+            draw=beamer@blendedblue,
+            thick, 
+            rounded corners, 
+            inner sep=8pt,
+            opacity=0.9,
+            text opacity=1,
+            anchor=north east
+        ] at ([xshift=-0.25cm, yshift=-1.25cm]current page.north east) {
+            Bäume mit mindestens $k$ Knoten $\Rightarrow$ Pivots
+        };
+        \node[
+            fill=white,
+            draw=beamer@blendedblue,
+            thick, 
+            rounded corners, 
+            inner sep=8pt,
+            opacity=1,
+            text opacity=1,
+            anchor=center,
+            align=center
+        ] at (current page.center) {
+            Maximal $n/k$ Bäume mit mindestens $k$ Knoten \\
+            $\Rightarrow$ Maximal $n/k$ Pivots
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Der Algorithmus - Pivots}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at ([yshift=-0.5cm]current page.center) {
+            \fbox{%
+                \includesvg[height=0.8\textheight]{pivots-3}%
+            }
+        };
+        \node[
+            fill=white,
+            draw=beamer@blendedblue,
+            thick, 
+            rounded corners, 
+            inner sep=8pt,
+            opacity=1,
+            text opacity=1,
+            anchor=north east,
+            align=center
+        ] at ([xshift=-0.25cm, yshift=-1.25cm]current page.north east) {
+            Weiterführende Bäume müssen unterste Schicht erreichen. \\
+            Nur Bäume mit mindestens $k$ Knoten (=Pivots) können das.
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Der Algorithmus - Pivots}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at ([yshift=-0.5cm]current page.center) {
+            \fbox{%
+                \includesvg[height=0.8\textheight]{pivots-4}%
+            }
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Der Algorithmus - Pivots}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at ([yshift=-0.5cm]current page.center) {
+            \fbox{%
+                \includesvg[height=0.8\textheight]{pivots-4}%
+            }
+        };
+        \node[
+            fill=white,
+            draw=beamer@blendedblue,
+            thick, 
+            rounded corners, 
+            inner sep=8pt,
+            opacity=1,
+            text opacity=1,
+            anchor=center,
+            align=center
+        ] at (current page.center) {
+            Alle nicht-Pivot-Knoten vorab berechnet \\
+            $\Rightarrow$ Nur Pivots werden weiterverfolgt
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Der Algorithmus - Pivots}
+    Wozu das ganze?
+    \vspace{0.6cm}
+    Hauptgrund für Geschwindigkeit:
+    \begin{itemize}
+        \item \textbf{Kostenreduktion} \\ 
+        reduziert Aufwand durch gezielte Knotenwahl
+        \vspace{0.4cm}
+        \item \textbf{Faktor} \\ 
+        reduziert BMSSP Knotenanazahl um $\log^{1/3} n$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Der Algorithmus - Letzte Hürde}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at ([yshift=-0.5cm]current page.center) {
+            \fbox{%
+                \includesvg[height=0.8\textheight]{hurdle-1}%
+            }
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Der Algorithmus - Letzte Hürde}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at ([yshift=-0.5cm]current page.center) {
+            \fbox{%
+                \includesvg[height=0.8\textheight]{hurdle-2}%
+            }
+        };
+        \node[
+            fill=white,
+            draw=beamer@blendedblue,
+            thick, 
+            rounded corners, 
+            inner sep=8pt,
+            opacity=1,
+            text opacity=1,
+            anchor=north east,
+            align=center
+        ] at ([xshift=-0.5cm, yshift=-1.5cm]current page.north east) {
+            Unerwartet viele Knoten in Partition
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Der Algorithmus - Letzte Hürde}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at ([yshift=-0.5cm]current page.center) {
+            \fbox{%
+                \includesvg[height=0.8\textheight]{hurdle-3}%
+            }
+        };
+    \end{tikzpicture}
+\end{frame}
 \subsection{Die Datenstruktur}
 
 \begin{frame}{Die Datenstruktur}
