@@ -8,16 +8,18 @@
 %%% --- TITLE PAGE --- %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{Breaking the Sorting Barrier for Directed Single-Source Shortest
+\title[BMSSP]{Breaking the Sorting Barrier for Directed Single-Source Shortest
 Paths}
 
-\subtitle{Duan et alii}
+\subtitle{Ein Blick über die wissenschaftliche Arbeit}
 \author[Tascan, Durie, Lackner]{B. Tascan, B. Durie, S. Lackner}
 \date[WAP 2025/26]{\today}
 
 \setbeamertemplate{title page}{
     \begin{center}
         {\usebeamerfont{title}\inserttitle\par}
+        \vspace{0.3cm}
+        {\usebeamerfont{subtitle}\insertsubtitle\par}
         \vspace{0.5cm}
         {\usebeamerfont{author}\insertauthor\par}
         \vspace{0.3cm}
@@ -72,34 +74,157 @@ Paths}
 
 \section{Einführung}
 
-
-\begin{frame}
-    \begin{itemize}
-        \item<1-> 
-        \item<2-> 
-        \item<3-> Datenstrukturen 
-    \end{itemize}
-\end{frame}
-
 \subsection{SSSP Algorithmen}
 
 \begin{frame}{SSSP Algorithmen}
     \begin{itemize}
         \item<1-> Single-Source Shortest Path Algorithmen (SSSP's) 
+        \begin{itemize}
+            \item<2-> Input: ein Graph $G$ und ein Startknoten $s$
+            \item<2-> Output: Der kürzeste Pfad von s nach alle anderen Knoten
+        \end{itemize}
+        \item<3-> Verwendet meistens für:
+        \begin{itemize}
+            \item<3-> GPS-Navigation
+            \item<3-> Network Routing
+            \item<3-> Video-Spiele
+        \end{itemize}
+        \item<4-> Es gibt zwei SSSP Algorithmen, die uns interessieren:
+        \begin{itemize}
+            \item<4-> Dijkstra's Algorithmus,
+            \item<4-> Bellman-Ford's Algorithmus
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{kleiner Exkurs}
+    \begin{itemize}
+        \item<1-> Greedy Algorithmen:
+        
+        Algorithmen, die in jedem Schritt die lokalbeste Entscheidung treffen. 
+        \item<2-> Frontier:
+        
+        Die Menge bereits abgeschlossener Knoten, 
+        durch die jeder noch nicht gefundene kürzeste Pfad zwingend hindurchführen muss.
+
+        \item<3-> Ein Knoten relaxieren:
+        
+        Alle Kanten von einem Knoten checken und die Distanzen verbessern, 
+        falls ein kürzerer Pfad entstanden ist.
     \end{itemize}
 \end{frame}
 
 \subsubsection{Dijkstra}
 
 \begin{frame}{Dijkstra}
-    
+    \begin{itemize}
+        \item<1-> Von Edsger W. Dijkstra im Jahr 1959 publiziert.
+        \item<2-> 66 Jahre lang der asymptotisch schnellste Algorithmus
+        \item<3-> Dijkstra's ist ein \textit{Greedy Algorithmus}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Dijkstra}
+  \begin{columns}
+    \begin{column}{0.55\textwidth}
+      \begin{itemize}
+        \item min-Prioritätswarteschlange zur Auswahl des nächsten Knotens
+        \item $\mathcal{O}(m + n \color{red}\log n\color{black})$
+        \item 
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{0.51\textwidth}
+      \centering
+        \begin{tikzpicture}[
+            ->,
+            >=stealth,
+            node distance=2.5cm,
+            vertex/.style={circle, draw, minimum size=8mm},
+            every edge/.style={draw}
+        ]
+
+        % Nodes
+        \node[vertex] (s) {$s$};
+        \node[vertex] (a) [right of=s] {$a$};
+        \node[vertex] (b) [below of=s] {$b$};
+        \node[vertex] (c) [right of=a] {$c$};
+        \node[vertex] (d) [below of=c] {$d$};
+
+        % Edges (all non-negative!)
+        \path
+        (s) edge node[above] {1} (a)
+        (s) edge node[left] {4} (b)
+        (a) edge node[above] {2} (c)
+        (a) edge node[right] {5} (d)
+        (b) edge node[below] {1} (d)
+        (c) edge node[right] {3} (d);
+
+        \end{tikzpicture}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \subsubsection{Bellman-Ford}
 
 \begin{frame}{Bellman-Ford}
-    
+    \begin{itemize}
+        \item<1-> Unabhängig von Bellman (1958) und Ford (1956) entwickelt 
+        \item<2-> Klassischer SSSP-Algorithmus für gerichtete Graphen
+        \item<3-> Funktioniert mit \textit{negativen Kantengewichten}
+        \item<4-> {Kein} Greedy-Algorithmus
+    \end{itemize}
 \end{frame}
+
+\begin{frame}{Bellman-Ford}
+    \begin{itemize}
+        \item<1-> Initialisiere Distanzen
+        \item<2-> Wiederhole $n-1$ Mal:
+        \begin{itemize}
+            \item<3-> Relaxiere \textbf{alle Kanten}
+        \end{itemize}
+        \item<4-> Optional: zusätzliche Runde erkennt negative Zyklen
+        \item<5-> Jede Iteration erweitert bekannte kürzeste Pfade um genau eine Kante
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Bellman-Ford}
+    \begin{columns}
+        \begin{column}{0.55\textwidth}
+            \begin{itemize}
+                \item Laufzeit: $\mathcal{O}(n \cdot m)$
+                \item Deutlich langsamer als Dijkstra
+                \item Dafür sehr robust
+            \end{itemize}
+        \end{column}
+
+        \begin{column}{0.51\textwidth}
+            \centering
+            \begin{tikzpicture}[
+                ->,
+                >=stealth,
+                node distance=2.5cm,
+                vertex/.style={circle, draw, minimum size=8mm},
+                every edge/.style={draw}
+                ]
+            % Nodes
+            \node[vertex] (s) {$s$};
+            \node[vertex] (a) [right of=s] {$a$};
+            \node[vertex] (b) [below of=a] {$b$};
+            \node[vertex] (c) [right of=a] {$c$};
+            % Edges
+            \path
+            (s) edge node[above] {4} (a)
+            (s) edge node[left] {5} (b)
+            (a) edge node[right] {-2} (b)
+            (a) edge node[above] {3} (c)
+            (b) edge node[below] {4} (c);
+
+            \end{tikzpicture}
+        \end{column}
+    \end{columns}
+\end{frame}
+
 
 %BMSSP%
 \section{Bounded Multi-Source Shortest Path}
@@ -313,7 +438,7 @@ Paths}
             text opacity=1,
             anchor=north east
         ] at ([xshift=-0.25cm, yshift=-1.25cm]current page.north east) {
-            $k$ Bellmann-Ford Schritte
+            $k$ Bellman-Ford Schritte
         };
     \end{tikzpicture}
 \end{frame}
@@ -465,7 +590,7 @@ Paths}
         reduziert Aufwand durch gezielte Knotenwahl
         \vspace{0.4cm}
         \item \textbf{Faktor} \\ 
-        reduziert BMSSP Knotenanazahl um $\log^{1/3} n$
+        reduziert BMSSP Knotenanzahl um $\log^{1/3} n$
     \end{itemize}
 \end{frame}
 
@@ -511,6 +636,7 @@ Paths}
         };
     \end{tikzpicture}
 \end{frame}
+
 \subsection{Die Datenstruktur}
 
 \begin{frame}{Die Datenstruktur}
@@ -536,8 +662,31 @@ Paths}
 
 \begin{frame}{Die Datenstruktur}
     \begin{itemize}
-        \item<1-> Beide Sequenzen sind nach deren Werten sortiert, d.h. der Upperbound eines Blocks ist nie größer als alle Werte des darauffolgenden Blocks
-        \item<2-> Die Blöcke werden von einem binären Suchbaum gebalanced
+        \item<1-> Dijkstra Laufzeit $\mathcal{O}(m\log n)$
+        \item<2-> Verbesserung mit spezieller Datenstruktur
+        \item<3-> Block-based Linked List
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Die Datenstruktur}
+    \begin{itemize} 
+        \item<1-> Zwei Sequenzen $\mathcal{D}_0$ und $\mathcal{D}_1$
+        \item<2-> Maximal M Key/Value Paaren
+        \item<3-> Upperbound von B
+        \item<4-> $\mathcal{D}_0$ enthält Batch Prepend Elemente, unbounded
+        \item<5-> $\mathcal{D}_1$ enthält mit Insert Elemente, bounded mit $O(\max\{N/M\})$
+    \end{itemize}
+    \only<3->{
+        \begin{center}
+            \includegraphics[width=0.7\textwidth]{test-6.pdf}
+        \end{center}
+    }
+\end{frame}
+
+\begin{frame}{Die Datenstruktur}
+    \begin{itemize}
+        \item<1-> Sequenzen sortiert nach Wert
+        \item<2-> Balancing mit Binären Suchbaum 
     \end{itemize}
     \only<2>{
         \begin{center}
@@ -562,38 +711,55 @@ Paths}
 \begin{frame}{Die Datenstruktur}
     \begin{itemize}
         \item<1-> Insert(a, b):
-        \item<2-> Sollten mehrere Key/Value Paare den selben Key haben, so wird das Paar mit dem kleineren Value bevorzugt
-        \item<3-> Der entsprechende Block wird mithilfe des Binären Baums gesucht
-        \item<4-> Insert beim gefunden Block in$\mathcal{D}_1$
-        \item<5-> Laufzeit von Insert $O(\max\{1, \log(N/M)\})$
+        \item<2-> Mehrere gleiche Key/Value Paare, niedrigere Value bevorzugt
+        \item<3-> Blocksuche mit Binär Baum
+        \item<4-> Insert in Block in $\mathcal{D}_1$
+        \item<5-> Laufzeit $O(\max\{\log(N/M)\})$
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Die Datenstruktur}
     \begin{itemize}
         \item<1-> Batch Prepend(L):
-        \item<2-> L Key/value Paare werden so eingetragen dass keine kleineren Werte vorhanden sind
-        \item<3-> Insert ist immer am Beginn von $\mathcal{D}_0$
-        \item<4-> Laufzeit von Batch Prepend $O(L \cdot \max\{1, \log(L/M)\})$
+        \item<2-> L Key/value Paare 
+        \item<3-> Insert, am Beginn von $\mathcal{D}_0$
+        \item<4-> Laufzeit $O(L \cdot \max\{\log(L/M)\})$
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Die Datenstruktur}
     \begin{itemize}
         \item<1-> Pull:
-        \item<2-> Pull gibt eine Menge S', mit einem Upper Bound x, an kleinsten Werten zurück 
-        \item<3-> Das führt zu einer Sortierung in Gruppen statt einer genauen Sortierung der Werte
+        \item<2-> Menge S' an kleinsten Werten, Upper Bound x 
+        \item<3-> Sortierung in Gruppen,statt einer genauen Sortierung
         \item<4-> Laufzeit von Pull $O(|S'|)$
+        
     \end{itemize}
+    \vspace{3cm}
+    \color{yellow}\hyperlink{endearly}{\tiny $\rightarrow$}\color{black}
 \end{frame}
 
-\subsection{Laufzeit}
+\subsection{Schluss}
 
-\section{Literatur}
-
-\begin{frame}{Literatur}
-    
+\begin{frame}
+    \begin{center}
+            \item Ist der Algorithmus praktisch umsetzbar?
+    \end{center}
 \end{frame}
 
+\begin{frame}{Benchmarking}
+    \includegraphics[width=11cm]{image.png}
+\end{frame}
+
+\begin{frame}[plain]
+    \hypertarget{endearly}{}
+    \begin{center}
+        \vspace{2.5cm}
+        \Huge \color{teal}Vielen Dank für Ihre
+        
+        Aufmerksamkeit!
+        \vspace{1.25cm}
+    \end{center}
+\end{frame}
 
 \end{document}
