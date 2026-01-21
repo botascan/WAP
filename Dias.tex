@@ -27,18 +27,23 @@ Paths}
         \vspace{0.3cm}
         {\usebeamerfont{date}\insertdate\par}
         \vspace{0.50cm}
-        \includegraphics[width=5.5cm]{logo1.png}
+        %\includegraphics[width=5.5cm]{logo1.png}
     \end{center}
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% --- INSTITUTE --- %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\institute[PLUS]{
+%    FB Informatik\\
+%    Universität Salzburg
+%}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% ---  --- %%%
+%%% --- OTHER CONFIGS --- %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\institute[PLUS]{
-    FB Informatik\\
-    Universität Salzburg
-}
 \setbeamertemplate{navigation symbols}{}
 
 \AtBeginSubsection[]
@@ -56,17 +61,16 @@ Paths}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
-
 \begin{frame}
     \titlepage
 \end{frame}
 
-\logo{
-  \begin{minipage}{1cm}
-    %\hfill
-    \includegraphics[height=1cm]{logo2.png}
-  \end{minipage}
-}
+%\logo{
+%  \begin{minipage}{1cm}
+%    %\hfill
+%    \includegraphics[height=1cm]{logo2.png}
+%  \end{minipage}
+%}
 
 \begin{frame}{Verzeichnis}
     \tableofcontents
@@ -686,7 +690,7 @@ Paths}
 \begin{frame}{Die Datenstruktur}
     \begin{itemize}
         \item<1-> Sequenzen sortiert nach Wert
-        \item<2-> Balancing mit Binären Suchbaum 
+        \item<2-> Balancing mit einem binären Suchbaum 
     \end{itemize}
     \only<2>{
         \begin{center}
@@ -712,7 +716,7 @@ Paths}
     \begin{itemize}
         \item<1-> Insert(a, b):
         \item<2-> Mehrere gleiche Key/Value Paare, niedrigere Value bevorzugt
-        \item<3-> Blocksuche mit Binär Baum
+        \item<3-> Blocksuche mit Binärbaum
         \item<4-> Insert in Block in $\mathcal{D}_1$
         \item<5-> Laufzeit $O(\max\{\log(N/M)\})$
     \end{itemize}
